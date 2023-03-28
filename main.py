@@ -55,12 +55,30 @@ while choice.lower() != 'q' :
                     ch.ai_play_random(new_game)
                     ch.show_game(new_game, cart_disponible)
             i = i+1
+            # if the numbers of cards == 0 so the last killer get the rest of louta cards 
+            if new_game.list_gamers[0].get_last_killer()==1:
+                louta_cards = new_game.get_list_carte_louta()
+                for i in louta_cards:
+                    new_game.list_gamers[0].get_box_score().append(i)
+                    louta_cards.remove(i)
+                print("Gamer, You get the rest of cards cause you are the last killer")
+                time.sleep(3)
+            else:
+                louta_cards = new_game.get_list_carte_louta()
+                for i in louta_cards:
+                    new_game.list_gamers[1].get_box_score().append(i)
+                    louta_cards.remove(i)
+                print("AI ,You get the rest of cards cause you are the last killer")
+                time.sleep(3)
+            # Calcul the score 
             ch.calcul_score(new_game)
         else :
+           
+            os.system("clear")
             ch.show_and_write_if_gamer_win(new_game)
 
     
-# chkoba 
+
 # li yekil le5ir yhez lkol 
 
 

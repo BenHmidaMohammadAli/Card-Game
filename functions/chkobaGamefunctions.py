@@ -327,22 +327,22 @@ def play_well (new_game, my_play, list_cards, etat_combinition) :
   louta_cards = new_game.get_list_carte_louta() 
   if etat_combinition == True :
     gamer1_score_box.append(my_play)
-    gamer1_cards.remove(my_play)   
+    gamer1_cards.remove(my_play) 
+    #for this work 
+    new_game.list_gamers[0].set_last_killer(1)
+    new_game.list_gamers[1].set_last_killer(0)  
     for i in list_cards :
       gamer1_score_box.append(i)
       louta_cards.remove(i)
       if len(louta_cards)==0:
         gamer1_score_box.append("chkoba")
         print("CHKOBAAAAAAAAAAA")
-        time.sleep(2)
-
-    
+        time.sleep(2)       
   else :
     #add the card to louta cards 
     louta_cards.append(my_play)
     new_game.set_list_carte_louta(louta_cards)
     gamer1_cards.remove(my_play)
-
   return gamer1_score_box
 
 def ai_play_random(new_game):
@@ -370,9 +370,10 @@ def ai_play_random(new_game):
         time.sleep(4)
         my_play = a[0]
         etat = True
+        new_game.list_gamers[0].set_last_killer(0)
+        new_game.list_gamers[1].set_last_killer(1) 
         #print(my_play [0])
         c =  " "
-          
         for i in my_play:
           gamer2_score_box.append(i)
           louta_cards.remove(i)
