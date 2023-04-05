@@ -1,5 +1,1 @@
-from . import carte
-from . import game
-from . import gamer
-
-
+from . import card, game, gamer
