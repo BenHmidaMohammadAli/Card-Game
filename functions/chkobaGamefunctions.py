@@ -174,14 +174,14 @@ def create_menu_custom_game():
     nbrG = 2
     list_gamers = []
     # Your custom player - humain
-    new_gamer = gamer.gamer("")
+    new_gamer = gamer.Gamer("")
     print(BOLD, BLUE, f"Create gamer number : 1 ", RESET)
     pseudo = input("Tell me your pseudo : ")
     new_gamer.set_pseudo(pseudo.upper())
     list_gamers.append(new_gamer)
 
     # custom player - AI
-    new_gamer2 = gamer.gamer("")
+    new_gamer2 = gamer.Gamer("")
     print(BOLD, BLUE, f"Create gamer number : 2 ", RESET)
     pseudo = "AI-PLAYER"
     print("You will play with : AI-PLAYER ")

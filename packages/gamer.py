@@ -1,4 +1,4 @@
-class gamer:
+class Gamer:
     def __init__(self, pseudo):
         self.pseudo = pseudo
         self.score = 0
