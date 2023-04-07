@@ -561,3 +561,79 @@ def show_and_write_if_gamer_win(new_game):
     else:
         print("Good job AI and you had the some score ")
         time.sleep(3.5)
+        
+#------------------------
+def choice_best_combination (new_game , list_possibility):
+  #best cobination depend value of score 
+  length_louta_cards = len(new_game.get_list_carte_louta())
+  
+  I_choose = False 
+  tupe_I_choose =()
+  score_of_tuple_max =0
+  
+  for i in list_possibility :
+    if len(i) == 1:
+      
+      if i[0].get_symbole() == "7 ♦" :
+        tupe_I_choose == i[0]
+        I_choose = True
+      if length_louta_cards-1 !=0  and "♦" in i[0].get_symbole() :
+        tupe_I_choose == i[0]
+        I_choose = True
+        
+    elif len(i) != 1:
+      score_of_tuple=0
+      for j in i :
+        if "♦" in i[0].get_symbole() or "7" in i[0].get_symbole() or "6" in i[0].get_symbole():
+          score_of_tuple = score_of_tuple + 1
+        
+      if score_of_tuple > score_of_tuple_max:
+        score_of_tuple_max=score_of_tuple
+        I_choose = True 
+        tupe_I_choose = i[0]
+        
+  
+
+def ai_play_minmax_algo(new_game):
+  gamer2_score_box = new_game.list_gamers[1].get_box_score()
+  
+  gamer1_cards = new_game.list_gamers[0].get_kaf()
+  gamer2_cards = new_game.list_gamers[1].get_kaf()
+  louta_cards = new_game.get_list_carte_louta()   
+  length_louta_cards = len(louta_cards)
+  
+  #♠ - ♥ - ♦ - ♣
+  if length_louta_cards != 0 :
+    I_play = False
+    #1st case 7 ♦  mean 1 point in score so verif we had it "El7aya"
+    if I_play == False :
+      cr7 = carte.carte("7 ♦", 7)
+      I_have_7aya = cr7 in gamer1_cards
+      louta_7aya = cr7 in louta_cards
+      gamer2_had_7aya = cr7 in gamer2_cards
+      
+      if I_have_7aya == True :
+        your_card = cr7
+        gamer2_cards.remove(your_card)
+        print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
+        time.sleep(4)
+        print(BOLD, GREEN, f" AI will play ==> {your_card.get_symbole()}", RESET)
+                  
+        for length in range(length_louta_cards):
+          a = show_combinations(louta_cards, length+1, your_card.get_value())
+  
+    
+    
+  
+  
+  
+  #2nd case chkoba  mean 1 point in score so verif we had it  "Chkobaa"
+
+  
+  #3rd case 6 ♠ - ♥ - ♦ - ♣ or 7 ♠ - ♥ - ♣  mean maybe 1 point in score so verif we had it "Bermila"
+
+ 
+  #4rd case max cards with ♦  mean maybe 1 point in score so verif we had it "Dinari"
+
+
+  #5th case max cards get it  mean maybe 1 point in score so verif we had it "Elkarta"
