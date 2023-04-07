@@ -1,11 +1,15 @@
-Hello 
+ *********** Hello *********** 
 
 
-It's Tunisian Card Game "CHKOBA"
+- It's Tunisian Card Game "CHKOBA"
 
-To play run 
+- To play run 
 
 python main.py
 
+- Use "Copy/Past" from teminal to choose your cards to playa
 
-Use "Copy/Past" from teminal to choose your cards to playa
+- In my code :
+
+gamer1 == Human who is you when you play vs AI 
+gamer2 == AI Player
