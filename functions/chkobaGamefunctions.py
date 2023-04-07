@@ -60,7 +60,7 @@ def show_combinations(cards, length, summ):
 
 
 def create_cards_list():
-    # carte de type coeur
+    # cards de type coeur
     c1 = card.Card("1 ♥", 1)
     c2 = card.Card("2 ♥", 2)
     c3 = card.Card("3 ♥", 3)
@@ -72,7 +72,7 @@ def create_cards_list():
     c9 = card.Card("9 ♥", 9)
     c10 = card.Card("10 ♥", 10)
 
-    # carte de type carreau
+    # cards de type carreau
     cr1 = card.Card("1 ♦", 1)
     cr2 = card.Card("2 ♦", 2)
     cr3 = card.Card("3 ♦", 3)
@@ -84,7 +84,7 @@ def create_cards_list():
     cr9 = card.Card("9 ♦", 9)
     cr10 = card.Card("10 ♦", 10)
 
-    # carte de type bermila
+    # cards de type bermila
     b1 = card.Card("1 ♠", 1)
     b2 = card.Card("2 ♠", 2)
     b3 = card.Card("3 ♠", 3)
@@ -96,7 +96,7 @@ def create_cards_list():
     b9 = card.Card("9 ♠", 9)
     b10 = card.Card("10 ♠", 10)
 
-    # carte de type dheben
+    # cards de type dheben
     d1 = card.Card("1 ♣", 1)
     d2 = card.Card("2 ♣", 2)
     d3 = card.Card("3 ♣", 3)
@@ -177,7 +177,7 @@ def create_menu_custom_game():
     new_gamer = gamer.Gamer("")
     print(BOLD, BLUE, f"Create gamer number : 1 ", RESET)
     pseudo = input("Tell me your pseudo : ")
-    new_gamer.set_pseudo(pseudo.upper())
+    new_gamer.pseudo =pseudo.upper()
     list_gamers.append(new_gamer)
 
     # custom player - AI
@@ -185,7 +185,7 @@ def create_menu_custom_game():
     print(BOLD, BLUE, f"Create gamer number : 2 ", RESET)
     pseudo = "AI-PLAYER"
     print("You will play with : AI-PLAYER ")
-    new_gamer2.set_pseudo(pseudo)
+    new_gamer2.pseudo  = pseudo
     list_gamers.append(new_gamer2)
 
     new_game.list_gamers = list_gamers
@@ -232,13 +232,13 @@ def get_first_chance_card(new_game, list_disponible):
     response = input("You accept it ( yes / no ) ")
 
     # list gamer nbre 1 cards
-    gamer_cards = new_game.list_gamers[0].get_kaf()
+    gamer_cards = new_game.list_gamers[0].kaf
     # list cards which is louta
     louta_cards = new_game.list_cards_louta
 
     if response.lower() == "yes":
         gamer_cards.append(carte_random)
-        new_game.list_gamers[0].set_kaf(gamer_cards)
+        new_game.list_gamers[0].kaf = gamer_cards
         list_disponible.remove(carte_random)
 
     elif response.lower() == "no":
@@ -265,21 +265,21 @@ def habat_louta(new_game, list_awra9_disponible):
 
 def distribute_cards(new_game, available_cards_list):
     # list gamer nbre 1 cards
-    gamer1_cards = new_game.list_gamers[0].get_kaf()
+    gamer1_cards = new_game.list_gamers[0].kaf
     # list gamer nbre 1 cards
-    gamer2_cards = new_game.list_gamers[1].get_kaf()
+    gamer2_cards = new_game.list_gamers[1].kaf
 
     while len(gamer1_cards) < 3:
         carte_random = random.choice(available_cards_list)
         gamer1_cards.append(carte_random)
         available_cards_list.remove(carte_random)
-    new_game.list_gamers[0].set_kaf(gamer1_cards)
+    new_game.list_gamers[0].kaf = gamer1_cards
 
     while len(gamer2_cards) < 3:
         carte_random = random.choice(available_cards_list)
         gamer2_cards.append(carte_random)
         available_cards_list.remove(carte_random)
-    new_game.list_gamers[1].set_kaf(gamer2_cards)
+    new_game.list_gamers[1].kaf = gamer2_cards
 
     return gamer1_cards, gamer2_cards
 
@@ -287,12 +287,12 @@ def distribute_cards(new_game, available_cards_list):
 def show_game(new_game, available_cards_list):
     os.system("clear")
     # list gamer nbre 1 cards
-    gamer1_cards = new_game.list_gamers[0].get_kaf()
+    gamer1_cards = new_game.list_gamers[0].kaf
     # list gamer nbre 2 cards
-    gamer2_cards = new_game.list_gamers[1].get_kaf()
+    gamer2_cards = new_game.list_gamers[1].kaf
     # list of cards louta
     louta_cards = new_game.list_cards_louta
-    new_game.list_gamers[0].get_score()
+    new_game.list_gamers[0].score
 
     number_of_cards_dispo = len(available_cards_list)
     print(
@@ -307,7 +307,7 @@ def show_game(new_game, available_cards_list):
     )
 
     print(
-        f"-- | {new_game.list_gamers[0].get_pseudo ()} : {new_game.list_gamers[0].get_score()} | ----------------- Level : {new_game.level} ----------------- | {new_game.list_gamers[1].get_pseudo ()} : {new_game.list_gamers[1].get_score()} | --\n",
+        f"-- | {new_game.list_gamers[0].pseudo } : {new_game.list_gamers[0].score } | ----------------- Level : {new_game.level} ----------------- | {new_game.list_gamers[1].pseudo } : {new_game.list_gamers[1].score } | --\n",
         RESET,
     )
 
@@ -323,18 +323,18 @@ def show_game(new_game, available_cards_list):
     for i in louta_cards:
         c3 = c3 + f" [{i.symbol}] "
 
-    print(BOLD, BLUE, f"{new_game.list_gamers[0].get_pseudo()}")
+    print(BOLD, BLUE, f"{new_game.list_gamers[0].pseudo }")
     print(BOLD, BLUE, f"{c1}", RESET)
     print("    -------    \n")
     print(BOLD, RED, f" {c3} \n", RESET)
     print("    -------    ")
-    print(BOLD, BLUE, f"{new_game.list_gamers[1].get_pseudo()}")
+    print(BOLD, BLUE, f"{new_game.list_gamers[1].pseudo }")
     print(BOLD, BLUE, f"{c2}")
     print(BOLD, GREEN, "-------------------------------------\n")
 
 
 def msg_player_mov(new_game):
-    gamer1_cards = new_game.list_gamers[0].get_kaf()
+    gamer1_cards = new_game.list_gamers[0].kaf
     louta_cards = new_game.list_cards_louta
     your_card = ""
     list_card_you_want_to_get_it = []
@@ -392,17 +392,17 @@ def verify_combination(my_play, list_cards):
 
 def play_well(new_game, my_play, cards_list, combination_state):
     # list gamer nbre 1 cards
-    gamer1_cards = new_game.list_gamers[0].get_kaf()
+    gamer1_cards = new_game.list_gamers[0].kaf
     # Score box
-    gamer1_score_box = new_game.list_gamers[0].get_box_score()
+    gamer1_score_box = new_game.list_gamers[0].box_score
     # list of cards louta
     louta_cards = new_game.list_cards_louta
     if combination_state:
         gamer1_score_box.append(my_play)
         gamer1_cards.remove(my_play)
         # for this work
-        new_game.list_gamers[0].set_last_killer(1)
-        new_game.list_gamers[1].set_last_killer(0)
+        new_game.list_gamers[0].last_killer = 1
+        new_game.list_gamers[1].last_killer = 0
         for i in cards_list:
             gamer1_score_box.append(i)
             louta_cards.remove(i)
@@ -419,8 +419,8 @@ def play_well(new_game, my_play, cards_list, combination_state):
 
 
 def ai_play_random(new_game):
-    gamer2_score_box = new_game.list_gamers[1].get_box_score()
-    gamer2_cards = new_game.list_gamers[1].get_kaf()
+    gamer2_score_box = new_game.list_gamers[1].box_score
+    gamer2_cards = new_game.list_gamers[1].kaf
     louta_cards = new_game.list_cards_louta
     length_louta_cards = len(louta_cards)
     # AI choose his card to play in random way
@@ -443,8 +443,8 @@ def ai_play_random(new_game):
                 time.sleep(4)
                 my_play = a[0]
                 state = True
-                new_game.list_gamers[0].set_last_killer(0)
-                new_game.list_gamers[1].set_last_killer(1)
+                new_game.list_gamers[0].last_killer = 0
+                new_game.list_gamers[1].last_killer = 1
                 # print(my_play [0])
                 c = " "
                 for i in my_play:
@@ -468,8 +468,8 @@ def ai_play_random(new_game):
 
 
 def calcul_score(new_game):
-    gamer1_score_box = new_game.list_gamers[0].get_box_score()
-    gamer2_score_box = new_game.list_gamers[1].get_box_score()
+    gamer1_score_box = new_game.list_gamers[0].box_score
+    gamer2_score_box = new_game.list_gamers[1].box_score
     sept_carreau = 0
     nombre_max_box = len(gamer1_score_box)
     max_carreau = 0
@@ -487,51 +487,49 @@ def calcul_score(new_game):
 
         if i == "chkoba":
             chkoba_gamer1 = chkoba_gamer1 + 1
-            new_game.list_gamers[0].set_score(new_game.list_gamers[0].get_score() + 1)
+            new_game.list_gamers[0].score = new_game.list_gamers[0].score + 1
 
         for j in gamer1_score_box:
             if j == "chkoba":
                 chkoba_gamer2 = chkoba_gamer2 + 1
-                new_game.list_gamers[1].set_score(
-                    new_game.list_gamers[1].get_score() + 1
-                )
+                new_game.list_gamers[1].score = new_game.list_gamers[1].score + 1
 
     time.sleep(3)
     if nombre_max_box > 20:
-        new_game.list_gamers[0].set_score(new_game.list_gamers[0].get_score() + 1)
+        new_game.list_gamers[0].score = new_game.list_gamers[0].score + 1
         print("Karta pour gamer 1")
     elif nombre_max_box == 20:
         print("Karta Ybaji")
     else:
-        new_game.list_gamers[1].set_score(new_game.list_gamers[1].get_score() + 1)
+        new_game.list_gamers[1].score = new_game.list_gamers[1].score + 1
         print("Karta pour AI gamer ")
     time.sleep(3)
 
     if sept_carreau > 0:
-        new_game.list_gamers[0].set_score(new_game.list_gamers[0].get_score() + 1)
+        new_game.list_gamers[0].score = new_game.list_gamers[0].score + 1
         print("7 Haya pour gamer 1")
     else:
-        new_game.list_gamers[1].set_score(new_game.list_gamers[1].get_score() + 1)
+        new_game.list_gamers[1].score = new_game.list_gamers[1].score + 1
         print("7 Haya pour AI gamer")
     time.sleep(3)
 
     if max_carreau > 4:
-        new_game.list_gamers[0].set_score(new_game.list_gamers[0].get_score() + 1)
+        new_game.list_gamers[0].score = new_game.list_gamers[0].score + 1
         print("Dinari for gamer 1")
     elif max_carreau == 5:
         print("Dinari Ybaji")
     else:
-        new_game.list_gamers[1].set_score(new_game.list_gamers[1].get_score() + 1)
+        new_game.list_gamers[1].score = new_game.list_gamers[1].score + 1
         print("Dinari for AI gamer ")
     time.sleep(3)
 
     if bermila > 4:
-        new_game.list_gamers[0].set_score(new_game.list_gamers[0].get_score() + 1)
+        new_game.list_gamers[0].score = new_game.list_gamers[0].score + 1
         print("Bermila for gamer 1")
     elif bermila == 4:
         print("Bermila Ybaji")
     else:
-        new_game.list_gamers[1].set_score(new_game.list_gamers[1].get_score() + 1)
+        new_game.list_gamers[1].score = new_game.list_gamers[1].score + 1
         print("Bermila for AI gamer ")
     time.sleep(3)
 
@@ -545,17 +543,17 @@ def calcul_score(new_game):
 
 
 def show_and_write_if_gamer_win(new_game):
-    score_gamer1 = new_game.list_gamers[0].get_score()
-    score_ai = new_game.list_gamers[1].get_score()
+    score_gamer1 = new_game.list_gamers[0].score
+    score_ai = new_game.list_gamers[1].score
     os.system("clear")
     print("Nice Game ")
     time.sleep(3.5)
     if score_gamer1 > score_ai:
-        print(f"Good job Gamer : {new_game.list_gamers[0].get_pseudo()}, you win!")
+        print(f"Good job Gamer : {new_game.list_gamers[0].pseudo }, you win!")
         time.sleep(3.5)
         f = open("historique.txt", "a")
         f.write("\n")
-        f.write(f"{new_game.list_gamers[0].get_pseudo()} was win in {date.today()}")
+        f.write(f"{new_game.list_gamers[0].pseudo } was win in {date.today()}")
         f.close()
     elif score_gamer1 < score_ai:
         print("Good job AI, you win!")

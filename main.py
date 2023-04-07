@@ -30,8 +30,8 @@ while choice.lower() != "q":
         os.system("clear")
         if level == 1:
             while (
-                new_game.list_gamers[0].get_score() < new_game.score_max
-                and new_game.list_gamers[1].get_score() < new_game.score_max
+                new_game.list_gamers[0].score < new_game.score_max
+                and new_game.list_gamers[1].score < new_game.score_max
             ):
                 i = 0
                 card_available = ch.create_cards_list()
@@ -67,10 +67,10 @@ while choice.lower() != "q":
                         ch.show_game(new_game, card_available)
                 i = i + 1
                 # if the numbers of cards == 0 so the last killer get the rest of louta cards
-                if new_game.list_gamers[0].get_last_killer() == 1:
+                if new_game.list_gamers[0].last_killer == 1:
                     louta_cards = new_game.list_cards_louta
                     for i in louta_cards:
-                        new_game.list_gamers[0].get_box_score().append(i)
+                        new_game.list_gamers[0].box_score.append(i)
                         louta_cards.remove(i)
                     print(
                         "Gamer, You get the rest of cards cause you are the last killer"
@@ -79,7 +79,7 @@ while choice.lower() != "q":
                 else:
                     louta_cards = new_game.list_cards_louta
                     for i in louta_cards:
-                        new_game.list_gamers[1].get_box_score().append(i)
+                        new_game.list_gamers[1].box_score.append(i)
                         louta_cards.remove(i)
                     print("AI ,You get the rest of cards cause you are the last killer")
                     time.sleep(3)
