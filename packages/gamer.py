@@ -1,51 +1,59 @@
-class gamer():
-	 
-	def __init__( self, pseudo ):
-		self.pseudo = pseudo
-		self.score = 0
-		self.kaf = []
-		self.box_score = []
-		self.last_killer = False
+class Gamer:
+    def __init__(self, pseudo):
+        self._pseudo = pseudo
+        self._score = 0
+        self._kaf = []
+        self._box_score = []
+        self._last_killer = False
 
-	def __str__(self):
-		return f"Gamer  : {self.pseudo} -> {self.score}  kaf = {self.kaf}"
-		
-	def __reper__(self):
-		return f"Gamer  : {self.pseudo} -> {self.score}  kaf = {self.kaf}"
-		
-	def set_pseudo(self, pseudo):
-		self.pseudo=pseudo
-	
-	def set_score(self, score):
-		self.score=score
-	
-	def set_kaf(self, kaf):
-		self.kaf=kaf
+    def __str__(self):
+        return f"Gamer  : {self._pseudo} -> {self._score}  kaf = {self._kaf}"
 
-	def set_box_score(self, box_score):
-		self.box_score=box_score
+    def __repr__(self):
+        return f"Gamer  : {self._pseudo} -> {self._score}  kaf = {self._kaf}"
 
-	def set_last_killer(self, last_killer):
-		self.last_killer=last_killer
-	#--
-	def get_pseudo(self):
-		return self.pseudo
-	
-	def get_score(self):
-		return self.score
-	
-	def get_kaf(self):
-		return self.kaf
-	
-	def get_box_score(self):
-		return self.box_score
+    @property
+    def pseudo(self):
+        return self._pseudo
+    
+    @pseudo.setter
+    def pseudo(self, value):
+        self._pseudo = value
 
-	def get_last_killer(self ):
-		return self.last_killer
-    #--
+    @property
+    def score(self):
+        return self._score
+    
+    @score.setter
+    def score(self, value):
+        self._score = value
 
-	def add_score(self, value):
-		self.score= self.score + value
-	 
-	def minus_score(self, value):
-	 	self.score= self.score- value
+    @property
+    def kaf(self):
+        return self._kaf
+    
+    @kaf.setter
+    def kaf(self, value):
+        self._kaf = value
+
+    @property
+    def box_score(self):
+        return self._box_score
+
+    @box_score.setter
+    def box_score(self, value):
+        self._box_score = value
+
+    @property
+    def last_killer(self):
+        return self._last_killer
+    
+    @last_killer.setter
+    def last_killer(self, value):
+        self._last_killer = value
+
+    def add_score(self, value):
+        self.score = self.score + value
+
+    def minus_score(self, value):
+        self.score = self.score - value
