@@ -7,7 +7,7 @@
 
 python main.py
 
-- Use "Copy/Past" from teminal to choose your cards to playa
+- Use "Copy/Past" from teminal to choose your cards to play
 
 - In my code :
 
