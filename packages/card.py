@@ -14,6 +14,14 @@ class Card:
     def symbol(self):
         return self._symbol
 
+    @symbol.setter
+    def symbol(self, value):
+        self._symbol=value
+    
     @property
     def value(self):
         return self._value
+    
+    @value.setter
+    def symbol(self, value):
+        self._value=value
