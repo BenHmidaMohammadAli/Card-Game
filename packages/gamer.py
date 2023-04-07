@@ -7,10 +7,10 @@ class Gamer:
         self._last_killer = False
 
     def __str__(self):
-        return f"Gamer  : {self.pseudo} -> {self.score}  kaf = {self.kaf}"
+        return f"Gamer  : {self._pseudo} -> {self._score}  kaf = {self._kaf}"
 
     def __repr__(self):
-        return f"Gamer  : {self.pseudo} -> {self.score}  kaf = {self.kaf}"
+        return f"Gamer  : {self._pseudo} -> {self._score}  kaf = {self._kaf}"
 
     @property
     def pseudo(self):

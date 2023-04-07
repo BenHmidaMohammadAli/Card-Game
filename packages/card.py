@@ -5,10 +5,10 @@ class Card:
         self._img = "null"
 
     def __str__(self):
-        return f"card is : {self.symbol} -> {self.value} "
+        return f"card is : {self._symbol} -> {self._value} "
 
     def __repr__(self):
-        return f"card is : {self.symbol} -> {self.value} "
+        return f"card is : {self._symbol} -> {self._value} "
 
     @property
     def symbol(self):
@@ -23,5 +23,5 @@ class Card:
         return self._value
     
     @value.setter
-    def symbol(self, value):
+    def value(self, value):
         self._value=value

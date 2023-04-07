@@ -6,10 +6,10 @@ class Game:
         self._level = level
 
     def __str__(self):
-        return f"Game  : list gamers : {self.list_gamers} liste Carta louta : {self.list_carte_louta}  score = {self.score_max} level = {self.level}"
+        return f"Game  : list gamers : {self._list_gamers} liste Carta louta : {self._list_cards_louta}  score = {self._score_max} level = {self._level}"
 
     def __repr__(self):
-        return f"Game  : {self.list_gamers} -> {self.list_carte_louta}  score = {self.score_max} level = {self.level}"
+        return f"Game  : {self._list_gamers} -> {self._list_cards_louta}  score = {self._score_max} level = {self._level}"
 
     @property
     def list_gamers(self):
