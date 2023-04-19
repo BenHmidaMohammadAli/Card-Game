@@ -298,7 +298,7 @@ def show_game(new_game, available_cards_list):
     print(
         BOLD,
         GREEN,
-        f" ------------------------ Card diponible [{number_of_cards_dispo}] ------------------------ ",
+        f" ------------------------ Card available [{number_of_cards_dispo}] ------------------------ ",
     )
     print(
         BOLD,
@@ -417,6 +417,7 @@ def play_well(new_game, my_play, cards_list, combination_state):
         gamer1_cards.remove(my_play)
     return gamer1_score_box
 
+#--------- AI Algo that Randomly work Function ---------------
 
 def ai_play_random(new_game):
     gamer2_score_box = new_game.list_gamers[1].box_score
@@ -434,37 +435,42 @@ def ai_play_random(new_game):
         louta_cards.append(your_card)
     else:
         # we will find all combinition to take cards from louta
-        state = False
-        for length in range(length_louta_cards):
-            # card.append(louta_cards[length].get_value())
-            a = show_combinations(louta_cards, length + 1, your_card.value)
-            if len(a) != 0:
-                gamer2_score_box.append(your_card)
-                time.sleep(4)
-                my_play = a[0]
-                state = True
-                new_game.list_gamers[0].last_killer = 0
-                new_game.list_gamers[1].last_killer = 1
-                # print(my_play [0])
-                c = " "
-                for i in my_play:
-                    gamer2_score_box.append(i)
-                    louta_cards.remove(i)
-                    c = c + "  " + i.symbol
-                    if len(louta_cards) == 0:
-                        gamer2_score_box.append("chkoba")
-                        print("CHKOBAAAAAAAAAAA")
-                        time.sleep(2)
-                print(BOLD, GREEN, f"Card ==> {c}", RESET)
-                time.sleep(4)
-                break
-
-        if not state:
+        gamer2_score_box = new_game.list_gamers[1].box_score
+    #gamer2_cards = new_game.list_gamers[1].kaf
+    louta_cards = new_game.list_cards_louta
+    length_louta_cards = len(louta_cards)
+    
+    state = False
+    for length in range(length_louta_cards):
+        # card.append(louta_cards[length].get_value())
+        a = show_combinations(louta_cards, length + 1, your_card.value)
+          
+        if len(a) != 0:          
+            gamer2_score_box.append(your_card)
             time.sleep(4)
-            print(BOLD, GREEN, f"Card ==> fine ", RESET)
+            my_play = a[0]
+            state = True
+            new_game.list_gamers[0].last_killer = 0
+            new_game.list_gamers[1].last_killer = 1
+            # print(my_play [0])
+            c = " "
+            for i in my_play:
+                gamer2_score_box.append(i)
+                louta_cards.remove(i)
+                c = c + "  " + i.symbol
+                if len(louta_cards) == 0:
+                    gamer2_score_box.append("chkoba")
+                    print("CHKOBAAAAAAAAAAA")
+                    time.sleep(2)
+            print(BOLD, GREEN, f"Card ==> {c}", RESET)
             time.sleep(4)
-            louta_cards.append(your_card)
-        time.sleep(3.5)
+            break
+    if not state:
+        time.sleep(4)
+        print(BOLD, GREEN, f"Card ==> fine ", RESET)
+        time.sleep(4)
+        louta_cards.append(your_card)
+    time.sleep(3.5)
 
 
 def calcul_score(new_game):
@@ -562,78 +568,339 @@ def show_and_write_if_gamer_win(new_game):
         print("Good job AI and you had the some score ")
         time.sleep(3.5)
         
-#------------------------
-def choice_best_combination (new_game , list_possibility):
-  #best cobination depend value of score 
-  length_louta_cards = len(new_game.get_list_carte_louta())
-  
-  I_choose = False 
-  tupe_I_choose =()
-  score_of_tuple_max =0
-  
-  for i in list_possibility :
-    if len(i) == 1:
-      
-      if i[0].get_symbole() == "7 ♦" :
-        tupe_I_choose == i[0]
-        I_choose = True
-      if length_louta_cards-1 !=0  and "♦" in i[0].get_symbole() :
-        tupe_I_choose == i[0]
-        I_choose = True
-        
-    elif len(i) != 1:
-      score_of_tuple=0
-      for j in i :
-        if "♦" in i[0].get_symbole() or "7" in i[0].get_symbole() or "6" in i[0].get_symbole():
-          score_of_tuple = score_of_tuple + 1
-        
-      if score_of_tuple > score_of_tuple_max:
-        score_of_tuple_max=score_of_tuple
-        I_choose = True 
-        tupe_I_choose = i[0]
-        
-  
+#--------- AI Algo that calculating all Posiblity Functions ---------------
 
-def ai_play_minmax_algo(new_game):
-  gamer2_score_box = new_game.list_gamers[1].get_box_score()
-  
-  gamer1_cards = new_game.list_gamers[0].get_kaf()
-  gamer2_cards = new_game.list_gamers[1].get_kaf()
-  louta_cards = new_game.get_list_carte_louta()   
-  length_louta_cards = len(louta_cards)
-  
-  #♠ - ♥ - ♦ - ♣
-  if length_louta_cards != 0 :
-    I_play = False
-    #1st case 7 ♦  mean 1 point in score so verif we had it "El7aya"
-    if I_play == False :
-      cr7 = carte.carte("7 ♦", 7)
-      I_have_7aya = cr7 in gamer1_cards
-      louta_7aya = cr7 in louta_cards
-      gamer2_had_7aya = cr7 in gamer2_cards
-      
-      if I_have_7aya == True :
-        your_card = cr7
-        gamer2_cards.remove(your_card)
-        print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
+def test_func (new_game, your_card ):
+    louta_cards = new_game.list_cards_louta
+    length_louta_cards = len(louta_cards)
+
+    state = False
+    list_possibility= []
+    for length in range(length_louta_cards):
+        # card.append(louta_cards[length].get_value())
+        combinations = show_combinations(louta_cards, length + 1, your_card.value)
+        for i in combinations :
+            list_possibility.append(i) 
+    
+    x, a = choice_best_combination (new_game , list_possibility)
+
+    if len(a) != 0:          
+        continue_the_playing_process (new_game ,your_card ,  a[0]) 
+        state = True
+
+    if not state:
         time.sleep(4)
-        print(BOLD, GREEN, f" AI will play ==> {your_card.get_symbole()}", RESET)
-                  
-        for length in range(length_louta_cards):
-          a = show_combinations(louta_cards, length+1, your_card.get_value())
+        print(BOLD, GREEN, f"Card ==> fine ", RESET)
+        time.sleep(4)
+        louta_cards.append(your_card)
+    time.sleep(3.5)
+
+def choice_best_combination (new_game , list_possibility):
+    #best cobination depend value of score 
+    length_louta_cards = len(new_game.list_cards_louta)
   
+    I_choose_one = False 
+    tuple_I_choose =()
+    score_of_tuple_max = 0
+
+    for i in list_possibility :
+        score_of_tuple = 0
+        #if this cards will make him had chkoba mean 1 point is the score, So I will take it and stop 
+        # verifing (break) cause in totally of case you will take all cards and take 1 point + others 
+        # if exist for example 7 ♦ or others ..
+        if len(i) == length_louta_cards :
+            tuple_I_choose == i[0]
+            score_of_tuple_max == 99999
+            I_choose_one = True
+            break 
+        #if combinition is had 1 card 
+        elif len(i) == 1:
+            #if this card == 7 ♦ wich mean 1 point is the score 
+            if i[0].symbol == "7 ♦" :
+                score_of_tuple = 1
+            #if this card will had "♦" mean in the root of 1 point is the score 
+            elif "♦" in i[0].symbol :
+                score_of_tuple = 0.025
+            #if this card will had "6" mean in the root of 1 point is the score 
+            elif "6" in i[0].symbol :
+                score_of_tuple = 0.025
+            #if this card will had "7" mean in the root of 1 point is the score 
+            elif "7" in i[0].symbol :
+                score_of_tuple = 0.025     
+                
+        elif len(i) != 1:
+            for j in i :
+                card_symbol = j.symbol
+                if "7 ♦" in card_symbol :
+                    score_of_tuple = score_of_tuple + 1.25
+                    
+                if "♦" in card_symbol :
+                    score_of_tuple = score_of_tuple + 0.025
+                    
+                if "7" in card_symbol :
+                    score_of_tuple = score_of_tuple + 0.025
+                    
+                if "6" in card_symbol :
+                    score_of_tuple = score_of_tuple + 0.025
+                    
+        if  score_of_tuple > score_of_tuple_max:
+            score_of_tuple_max=score_of_tuple
+            I_choose_one = True 
+            tupe_I_choose = i
+            
+    if tuple_I_choose != ():
+        return score_of_tuple_max, tuple_I_choose
+    else : 
+        return score_of_tuple_max, list_possibility[0]
+
+
+def search_list_value(lst , value):
+    """Searches for objects in a list that have an attribute named "value" equal to 7"""
+    result = []
+    for obj in lst:
+        if obj.value == value:
+            result.append(obj)
+    return result
+
+def search_list_symbol(lst , symbol):
+    """Searches for objects in a list that have an attribute named "symbol" equal to 7"""
+    result = []
+    for obj in lst:
+        if obj.symbol == symbol:
+            result.append(obj)
+    return result
+
+def test_if_will_be_a_chkoba(louta_cards , cards_player_to_test):
+    total_value_louta = 0
+    I_can_get_chkoba = False
+    your_card_to_play = None
     
+    for obj in louta_cards:
+        total_value_louta = total_value_louta + obj.value
+        
+    for obj in cards_player_to_test :
+        if obj.value == total_value_louta :
+            I_can_get_chkoba = True 
+            your_card_to_play = obj 
+            break    
+
+    return I_can_get_chkoba , your_card_to_play
+            
+
+def continue_the_playing_process (new_game ,your_card , list_you_will_get) :
+    #TODO A avoir why it's all wrong 
+    AI_score_box = new_game.list_gamers[1].box_score
+    AI_cards = new_game.list_gamers[1].kaf
+    louta_cards = new_game.list_cards_louta 
     
-  
-  
-  
-  #2nd case chkoba  mean 1 point in score so verif we had it  "Chkobaa"
+    AI_cards.remove(your_card)
+    print(BOLD, GREEN, "AI-PLAYER movement ", RESET)
+    time.sleep(4)
+    print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
+    if len(list_you_will_get)!= 0 :
+        new_game.list_gamers[0].last_killer = 0
+        new_game.list_gamers[1].last_killer = 1
+        AI_score_box.append(your_card)
+    else :
+        louta_cards.append(your_card)
+    time.sleep(4)
+   
+    c = " "
+        
+    for i in range (len(list_you_will_get)):
+        AI_score_box.append(list_you_will_get[i])
+        louta_cards.remove(list_you_will_get[i])
+        c = c + "  " + list_you_will_get[i].symbol
+        if len(louta_cards) == 0:
+            AI_score_box.append("chkoba")
+            print("CHKOBAAAAAAAAAAA")
+            time.sleep(2)
+            
+    print(BOLD, GREEN, f"Card ==> {c}", RESET)
+    time.sleep(4)
+            
+def ai_play_minmax_algo(new_game):
+    AI_score_box = new_game.list_gamers[1].box_score
+    
+    gamer1_cards = new_game.list_gamers[0].kaf
+    AI_cards = new_game.list_gamers[1].kaf
+    louta_cards = new_game.list_cards_louta 
+    length_louta_cards = len(louta_cards)
+    
+    state_of_game = False # not again play and win a cards 
+    #♠ - ♥ - ♦ - ♣
+    if length_louta_cards != 0 :
+        #1st state chkoba  mean 1 point in score so verif we had it  "Chkobaa" and you will get all card in 
+        #louta cards list 
+        if state_of_game == False :
+            I_can_get_chkoba, your_card= test_if_will_be_a_chkoba(louta_cards , AI_cards)
+            
+            if I_can_get_chkoba == True :
+                continue_the_playing_process (new_game ,your_card , louta_cards) 
+                state_of_game = True
 
-  
-  #3rd case 6 ♠ - ♥ - ♦ - ♣ or 7 ♠ - ♥ - ♣  mean maybe 1 point in score so verif we had it "Bermila"
+        #2st state 7 ♦  mean 1 point in score so verif we had it "El7aya"
+        #it's depends if cards of 7 ♦ in ai or louta or gamer1 cards  
+        if state_of_game == False :       
+            cr7 = card.Card("7 ♦", 7)
+            gamer1_have_7aya = False 
+            louta_7aya = False 
+            AI_have_7aya = False
+            #Search where is it 7 ♦ 
+            for i in gamer1_cards:
+                if i.value == 7 and i.symbol == "7 ♦" :
+                    gamer1_have_7aya = True
+                
+            for i in louta_cards:
+                if i.value == 7 and i.symbol == "7 ♦" :
+                    louta_7aya = True
+                    
+            for i in AI_cards:
+                if i.value == 7 and i.symbol == "7 ♦" :
+                    AI_have_7aya = True
+            
+            
+            #Search where is it 7 
+            gamer1_have_sab3a = False 
+            louta_sab3a = False 
+            AI_have_sab3a = False  
+            for i in gamer1_cards :
+                if i.value == 7 :
+                    gamer1_have_sab3a = True
+                            
+            for i in louta_cards :
+                if i.value == 7 :
+                    louta_sab3a = True 
+            
+            for i in AI_cards :
+                if i.value == 7 :
+                    AI_have_sab3a = True
+                        
+            # Here if AI had 7 7aya and louta there is a 7 
+            if AI_have_7aya == True and louta_sab3a == True :
+                
+                #TODO ena lehna prob cr7 n'est pas dans la list
+                your_card = search_list_symbol(AI_cards ,"7 ♦")
+                AI_cards.remove(your_card[0])
+                print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
+                time.sleep(4)
+                print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
+                test_func(new_game, your_card[0] )
+                state_of_game == True
+                
+            elif AI_have_sab3a == True and louta_7aya == True :
+                possible = search_list_value(AI_cards , 7)
+                your_card = possible[0]
+                AI_cards.remove(your_card)
+                print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
+                time.sleep(4)
+                print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
+                test_func(new_game, your_card)
+                state_of_game == True
 
- 
-  #4rd case max cards with ♦  mean maybe 1 point in score so verif we had it "Dinari"
+            
+            elif (gamer1_have_7aya == True or gamer1_have_sab3a) and (louta_7aya == True or louta_sab3a == True ):
+                #TODO :  I want To had all combinitions to cards and choose the best one which had best score 
+                #all wrong for this clause
+                a = show_combinations()
+                
+                score_of_tuple_max, your_card = choice_best_combination (new_game , AI_cards)
+                AI_cards.remove(your_card)
+                print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
+                time.sleep(4)
+                print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
+                test_func(new_game, your_card )
+                state_of_game == True
+            #TODO 
+            elif louta_sab3a == True and AI_have_sab3a == True:
+                #TODO :  I want To had all combinitions to cards and choose the best one which had best score 
+                #all wrong for this clause
+                a = show_combinations()
+                
+                score_of_tuple_max, your_card = choice_best_combination (new_game , AI_cards)
+                AI_cards.remove(your_card)
+                print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
+                time.sleep(4)
+                print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
+                test_func(new_game, your_card )
+                state_of_game == True
+            #elif I had sab7a ou 7aya and there are combinition = 7:
 
+        #3rd case test if gamer1 will get a chkoba or not
+        #if my play make him had the chance to get a chkoba so block him with card that will 
+        #                           --------------- 
+        # in this step if the game stay with state == False 
+        # we will talk about this 
+        #4rd case max cards get it  mean maybe 1 point in score so verif we had it "Elkarta"
+        #4rd case 6 ♠ - ♥ - ♦ - ♣ or 7 ♠ - ♥ - ♣  mean maybe 1 point in score so verif we had it "Bermila"
+        #5th case max cards with ♦  mean maybe 1 point in score so verif we had it "Dinari"
+        if state_of_game == False :
+            test_cards_louta = list(louta_cards)
+            card_dont_play = []
+            score_max =0
+            list_play = []
+            for i in AI_cards :
+                test_cards_louta.append(i)
+                he_can_get_chkoba, card_he_will_play = test_if_will_be_a_chkoba(test_cards_louta , gamer1_cards)
+                if he_can_get_chkoba == True :
+                    card_dont_play.append(i)
+                test_cards_louta.remove(i)
+                
+            your_cards_possible_toplay = list(set(AI_cards) - set(card_dont_play))
+            if len(your_cards_possible_toplay) != 0:
+                list_possibility = []
+                for i in range(len(your_cards_possible_toplay)):
+                    for length in range(length_louta_cards):
+                        a = show_combinations(louta_cards, length+1, your_cards_possible_toplay[i].value)
+                        if len(a) != 0 :
+                            for x in a :
+                                list_possibility.append(x)
+                    if len(list_possibility) != 0:
+                        #TODO: a verifier show combinition  
+                        score_of_tuple_max, list_play_w  = choice_best_combination (new_game , list_possibility[0])
+                        if score_of_tuple_max > score_max :
+                            score_max = score_of_tuple_max
+                            your_card = your_cards_possible_toplay[i]
+                            list_play = list_play_w
+                            
+                            
+                continue_the_playing_process (new_game ,your_card, list_play) 
+                state_of_game = True
+                        
+            elif len(your_cards_possible_toplay) == 0:
+                your_card = random.choice(AI_cards)
+                #random should be != 7 
+                continue_the_playing_process (new_game ,your_card , []) 
+                state_of_game = True 
+                
+        #if tel the end the game still blocked we will play as random way 
+        if state_of_game == False :
+            your_card = random.choice(AI_cards)
+            continue_the_playing_process (new_game ,your_card , []) 
+            state_of_game = True 
+            
+            
+    #if length_louta_cards we will play card != of all cards of the gamer1 cards
+    # also this card will not be a valued card 
+    elif length_louta_cards == 0 :
+        test_cards_louta = list(louta_cards)
+        card_dont_play = []
+        for i in AI_cards :
+            test_cards_louta.append(i)
+            he_can_get_chkoba, card_he_will_play = test_if_will_be_a_chkoba(test_cards_louta , gamer1_cards)
+            if he_can_get_chkoba == True :
+                card_dont_play.append(i)
+            test_cards_louta.remove(i)  
+                
+        your_cards_possible_toplay = list(set(AI_cards) - set(card_dont_play))        
+        if len(your_cards_possible_toplay) != 0 :
+            your_card = your_cards_possible_toplay[0]
+            continue_the_playing_process (new_game ,your_card , []) 
+            state_of_game = True 
+            
+        elif len(your_cards_possible_toplay) == 0 :
+            your_card = random.choice(AI_cards)
+            continue_the_playing_process (new_game ,your_card , []) 
+            state_of_game = True 
+        
 
-  #5th case max cards get it  mean maybe 1 point in score so verif we had it "Elkarta"
