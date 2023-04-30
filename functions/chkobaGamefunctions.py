@@ -643,7 +643,7 @@ def choice_best_combination (new_game , list_possibility):
                 if "6" in card_symbol :
                     score_of_tuple = score_of_tuple + 0.025
                     
-        if  score_of_tuple > score_of_tuple_max:
+        if  score_of_tuple >= score_of_tuple_max:
             score_of_tuple_max=score_of_tuple
             I_choose_one = True 
             tupe_I_choose = i
@@ -707,7 +707,8 @@ def continue_the_playing_process (new_game ,your_card , list_you_will_get) :
    
     c = " "
         
-    for i in range (len(list_you_will_get)):
+    for i in range (len(list_you_will_get),-1 ):
+        #here I'm ...........................................................................
         AI_score_box.append(list_you_will_get[i])
         louta_cards.remove(list_you_will_get[i])
         c = c + "  " + list_you_will_get[i].symbol
@@ -716,7 +717,10 @@ def continue_the_playing_process (new_game ,your_card , list_you_will_get) :
             print("CHKOBAAAAAAAAAAA")
             time.sleep(2)
             
-    print(BOLD, GREEN, f"Card ==> {c}", RESET)
+    if c != " ": 
+        print(BOLD, GREEN, f"Card ==> {c}", RESET)
+    else :
+        print(BOLD, GREEN, f"Card ==> fine ", RESET)
     time.sleep(4)
             
 def ai_play_minmax_algo(new_game):
@@ -736,7 +740,7 @@ def ai_play_minmax_algo(new_game):
             I_can_get_chkoba, your_card= test_if_will_be_a_chkoba(louta_cards , AI_cards)
             
             if I_can_get_chkoba == True :
-                continue_the_playing_process (new_game ,your_card , louta_cards) 
+                continue_the_playing_process(new_game ,your_card , louta_cards) 
                 state_of_game = True
 
         #2st state 7 ♦  mean 1 point in score so verif we had it "El7aya"
@@ -778,10 +782,9 @@ def ai_play_minmax_algo(new_game):
                         
             # Here if AI had 7 7aya and louta there is a 7 
             if AI_have_7aya == True and louta_sab3a == True :
-                
                 #TODO ena lehna prob cr7 n'est pas dans la list
                 your_card = search_list_symbol(AI_cards ,"7 ♦")
-                AI_cards.remove(your_card[0])
+                #AI_cards.remove(your_card[0])
                 print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
                 time.sleep(4)
                 print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
@@ -791,40 +794,28 @@ def ai_play_minmax_algo(new_game):
             elif AI_have_sab3a == True and louta_7aya == True :
                 possible = search_list_value(AI_cards , 7)
                 your_card = possible[0]
-                AI_cards.remove(your_card)
+                #AI_cards.remove(your_card)
                 print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
                 time.sleep(4)
                 print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
                 test_func(new_game, your_card)
                 state_of_game == True
 
-            
-            elif (gamer1_have_7aya == True or gamer1_have_sab3a) and (louta_7aya == True or louta_sab3a == True ):
-                #TODO :  I want To had all combinitions to cards and choose the best one which had best score 
-                #all wrong for this clause
-                a = show_combinations()
-                
-                score_of_tuple_max, your_card = choice_best_combination (new_game , AI_cards)
-                AI_cards.remove(your_card)
-                print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
-                time.sleep(4)
-                print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
-                test_func(new_game, your_card )
-                state_of_game == True
-            #TODO 
+        
             elif louta_sab3a == True and AI_have_sab3a == True:
                 #TODO :  I want To had all combinitions to cards and choose the best one which had best score 
                 #all wrong for this clause
-                a = show_combinations()
+                possible = search_list_value(AI_cards , 7)
+                your_card = possible[0]
+                a = show_combinations(louta_cards, 1, your_card)                
                 
                 score_of_tuple_max, your_card = choice_best_combination (new_game , AI_cards)
-                AI_cards.remove(your_card)
+                #AI_cards.remove(your_card)
                 print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
                 time.sleep(4)
                 print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
                 test_func(new_game, your_card )
                 state_of_game == True
-            #elif I had sab7a ou 7aya and there are combinition = 7:
 
         #3rd case test if gamer1 will get a chkoba or not
         #if my play make him had the chance to get a chkoba so block him with card that will 
@@ -849,6 +840,7 @@ def ai_play_minmax_algo(new_game):
             your_cards_possible_toplay = list(set(AI_cards) - set(card_dont_play))
             if len(your_cards_possible_toplay) != 0:
                 list_possibility = []
+                list_play = []
                 for i in range(len(your_cards_possible_toplay)):
                     for length in range(length_louta_cards):
                         a = show_combinations(louta_cards, length+1, your_cards_possible_toplay[i].value)
@@ -856,17 +848,16 @@ def ai_play_minmax_algo(new_game):
                             for x in a :
                                 list_possibility.append(x)
                     if len(list_possibility) != 0:
-                        #TODO: a verifier show combinition  
-                        score_of_tuple_max, list_play_w  = choice_best_combination (new_game , list_possibility[0])
-                        if score_of_tuple_max > score_max :
+                        score_of_tuple_max, list_play_w  = choice_best_combination (new_game , list_possibility)
+                        if (score_of_tuple_max >= score_max ) and list_play_w != list_play :
                             score_max = score_of_tuple_max
                             your_card = your_cards_possible_toplay[i]
                             list_play = list_play_w
                             
+                if your_card != None : 
+                    continue_the_playing_process (new_game ,your_card, list_play) 
+                    state_of_game = True
                             
-                continue_the_playing_process (new_game ,your_card, list_play) 
-                state_of_game = True
-                        
             elif len(your_cards_possible_toplay) == 0:
                 your_card = random.choice(AI_cards)
                 #random should be != 7 
