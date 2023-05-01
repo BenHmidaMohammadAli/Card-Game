@@ -666,7 +666,6 @@ def choice_best_combination (new_game , list_possibility, your_card):
     else : 
         return score_of_tuple_max, list_possibility[0]
 
-
 def search_list_value(lst , value):
     """Searches for objects in a list that have an attribute named "value" equal to 7"""
     result = []
@@ -699,9 +698,7 @@ def test_if_will_be_a_chkoba(louta_cards , cards_player_to_test):
 
     return I_can_get_chkoba , your_card_to_play
             
-
 def continue_the_playing_process (new_game ,your_card , list_you_will_get) :
-    #TODO A avoir why it's all wrong 
     AI_score_box = new_game.list_gamers[1].box_score
     AI_cards = new_game.list_gamers[1].kaf
     louta_cards = new_game.list_cards_louta 
