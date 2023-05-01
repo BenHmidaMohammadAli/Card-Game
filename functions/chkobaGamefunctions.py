@@ -577,7 +577,7 @@ def test_func (new_game, your_card ):
     state = False
     list_possibility= []
     for length in range(length_louta_cards):
-        # card.append(louta_cards[length].get_value())
+        #card.append(louta_cards[length].get_value())
         combinations = show_combinations(louta_cards, length + 1, your_card.value)
         for i in combinations :
             list_possibility.append(i) 
@@ -595,7 +595,7 @@ def test_func (new_game, your_card ):
         louta_cards.append(your_card)
     time.sleep(3.5)
 
-def choice_best_combination (new_game , list_possibility):
+def choice_best_combination (new_game , list_possibility, your_card):
     #best cobination depend value of score 
     length_louta_cards = len(new_game.list_cards_louta)
   
@@ -603,13 +603,26 @@ def choice_best_combination (new_game , list_possibility):
     tuple_I_choose =()
     score_of_tuple_max = 0
 
-    for i in list_possibility :
-        score_of_tuple = 0
+    for i in list_possibility :        
+        score_of_tuple = 0     
+        #verif card that we will play with it what can add in score 
+        if your_card.symbol == "7 ♦" :
+            score_of_tuple = 1    
+        #if this card will had "♦" mean in the root of 1 point is the score 
+        elif "♦" in your_card.symbol :
+            score_of_tuple = 0.025
+        #if this card will had "6" mean in the root of 1 point is the score 
+        elif "6" in your_card.symbol :
+            score_of_tuple = 0.025
+        #if this card will had "7" mean in the root of 1 point is the score 
+        elif "7" in your_card.symbol :
+            score_of_tuple = 0.025     
+           
         #if this cards will make him had chkoba mean 1 point is the score, So I will take it and stop 
         # verifing (break) cause in totally of case you will take all cards and take 1 point + others 
-        # if exist for example 7 ♦ or others ..
+        # if exist for example 7 ♦ or others ..3            
         if len(i) == length_louta_cards :
-            tuple_I_choose == i[0]
+            tuple_I_choose = i[0]
             score_of_tuple_max == 99999
             I_choose_one = True
             break 
@@ -646,9 +659,9 @@ def choice_best_combination (new_game , list_possibility):
         if  score_of_tuple >= score_of_tuple_max:
             score_of_tuple_max=score_of_tuple
             I_choose_one = True 
-            tupe_I_choose = i
-            
-    if tuple_I_choose != ():
+            tuple_I_choose = i
+
+    if I_choose_one == True:
         return score_of_tuple_max, tuple_I_choose
     else : 
         return score_of_tuple_max, list_possibility[0]
@@ -706,16 +719,25 @@ def continue_the_playing_process (new_game ,your_card , list_you_will_get) :
     time.sleep(4)
    
     c = " "
-        
-    for i in range (len(list_you_will_get),-1 ):
-        #here I'm ...........................................................................
-        AI_score_box.append(list_you_will_get[i])
-        louta_cards.remove(list_you_will_get[i])
-        c = c + "  " + list_you_will_get[i].symbol
+    
+    if len(list_you_will_get) == 1:
+        AI_score_box.append(list_you_will_get[0])
+        louta_cards.remove(list_you_will_get[0])
+        c = c + "  " + list_you_will_get[0].symbol
         if len(louta_cards) == 0:
             AI_score_box.append("chkoba")
             print("CHKOBAAAAAAAAAAA")
             time.sleep(2)
+    else :
+        for i in list_you_will_get : #range (len(list_you_will_get) ):
+            #here I'm ...........................................................................
+            AI_score_box.append(i)
+            louta_cards.remove(i)
+            c = c + "  " + i.symbol
+            if len(louta_cards) == 0:
+                AI_score_box.append("chkoba")
+                print("CHKOBAAAAAAAAAAA")
+                time.sleep(2)
             
     if c != " ": 
         print(BOLD, GREEN, f"Card ==> {c}", RESET)
@@ -807,9 +829,9 @@ def ai_play_minmax_algo(new_game):
                 #all wrong for this clause
                 possible = search_list_value(AI_cards , 7)
                 your_card = possible[0]
-                a = show_combinations(louta_cards, 1, your_card)                
-                
-                score_of_tuple_max, your_card = choice_best_combination (new_game , AI_cards)
+                list_possibility = show_combinations(louta_cards, 1, your_card)                
+                 
+                score_of_tuple_max, your_card = choice_best_combination (new_game , list_possibility, your_card)
                 #AI_cards.remove(your_card)
                 print(BOLD, GREEN, "AI-PLAYER movement " , RESET)
                 time.sleep(4)
@@ -848,7 +870,7 @@ def ai_play_minmax_algo(new_game):
                             for x in a :
                                 list_possibility.append(x)
                     if len(list_possibility) != 0:
-                        score_of_tuple_max, list_play_w  = choice_best_combination (new_game , list_possibility)
+                        score_of_tuple_max, list_play_w  = choice_best_combination (new_game , list_possibility, your_cards_possible_toplay[i])
                         if (score_of_tuple_max >= score_max ) and list_play_w != list_play :
                             score_max = score_of_tuple_max
                             your_card = your_cards_possible_toplay[i]
@@ -869,8 +891,7 @@ def ai_play_minmax_algo(new_game):
             your_card = random.choice(AI_cards)
             continue_the_playing_process (new_game ,your_card , []) 
             state_of_game = True 
-            
-            
+                        
     #if length_louta_cards we will play card != of all cards of the gamer1 cards
     # also this card will not be a valued card 
     elif length_louta_cards == 0 :
