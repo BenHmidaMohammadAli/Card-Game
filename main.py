@@ -3,6 +3,9 @@ import random
 import time
 
 from functions import chkobaGamefunctions as ch
+from functions import chkobaGamefunctionsRandom as chRandom
+from functions import chkobaGamefunctionsAI as chAI
+
 from packages import card, game, gamer
 
 choice = "Hello"
@@ -64,7 +67,7 @@ while choice.lower() != "q":
                         )
                         ch.show_game(new_game, card_available)
                         # AI play
-                        ch.ai_play_random(new_game)
+                        chRandom.ai_play_random(new_game)
                         ch.show_game(new_game, card_available)
                 i = i + 1
                 # if the numbers of cards == 0 so the last killer get the rest of louta cards
@@ -127,7 +130,7 @@ while choice.lower() != "q":
                         )
                         ch.show_game(new_game, card_available)
                         # AI play
-                        ch.ai_play_minmax_algo(new_game)
+                        chAI.ai_play_minmax_algo(new_game)
                         ch.show_game(new_game, card_available)
                 i = i + 1
                 # if the numbers of cards == 0 so the last killer get the rest of louta cards
@@ -151,17 +154,10 @@ while choice.lower() != "q":
                 ch.calcul_score(new_game)
             else:
                 os.system("clear")
-                ch.show_and_write_if_gamer_win(new_game)
-
+                ch.show_and_write_if_gamer_win(new_game) 
             
             
             
             
             
             
-            
-            
-            
-            
-            
-        
