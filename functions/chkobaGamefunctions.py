@@ -298,7 +298,7 @@ def show_game(new_game, available_cards_list):
     print(
         BOLD,
         GREEN,
-        f" ------------------------ Card diponible [{number_of_cards_dispo}] ------------------------ ",
+        f" ------------------------ Card available [{number_of_cards_dispo}] ------------------------ ",
     )
     print(
         BOLD,
@@ -319,7 +319,8 @@ def show_game(new_game, available_cards_list):
 
     for i in gamer2_cards:
         c2 = c2 + f" [{i.symbol}] "
-
+        #c2 = c2 + f" [ ? ] "
+    
     for i in louta_cards:
         c3 = c3 + f" [{i.symbol}] "
 
@@ -418,55 +419,6 @@ def play_well(new_game, my_play, cards_list, combination_state):
     return gamer1_score_box
 
 
-def ai_play_random(new_game):
-    gamer2_score_box = new_game.list_gamers[1].box_score
-    gamer2_cards = new_game.list_gamers[1].kaf
-    louta_cards = new_game.list_cards_louta
-    length_louta_cards = len(louta_cards)
-    # AI choose his card to play in random way
-    your_card = random.choice(gamer2_cards)
-    gamer2_cards.remove(your_card)
-    print(BOLD, GREEN, "AI-PLAYER movement ", RESET)
-    time.sleep(4)
-    print(BOLD, GREEN, f" AI will play ==> {your_card.symbol}", RESET)
-    # Now AI will be
-    if length_louta_cards == 0:
-        louta_cards.append(your_card)
-    else:
-        # we will find all combinition to take cards from louta
-        state = False
-        for length in range(length_louta_cards):
-            # card.append(louta_cards[length].get_value())
-            a = show_combinations(louta_cards, length + 1, your_card.value)
-            if len(a) != 0:
-                gamer2_score_box.append(your_card)
-                time.sleep(4)
-                my_play = a[0]
-                state = True
-                new_game.list_gamers[0].last_killer = 0
-                new_game.list_gamers[1].last_killer = 1
-                # print(my_play [0])
-                c = " "
-                for i in my_play:
-                    gamer2_score_box.append(i)
-                    louta_cards.remove(i)
-                    c = c + "  " + i.symbol
-                    if len(louta_cards) == 0:
-                        gamer2_score_box.append("chkoba")
-                        print("CHKOBAAAAAAAAAAA")
-                        time.sleep(2)
-                print(BOLD, GREEN, f"Card ==> {c}", RESET)
-                time.sleep(4)
-                break
-
-        if not state:
-            time.sleep(4)
-            print(BOLD, GREEN, f"Card ==> fine ", RESET)
-            time.sleep(4)
-            louta_cards.append(your_card)
-        time.sleep(3.5)
-
-
 def calcul_score(new_game):
     gamer1_score_box = new_game.list_gamers[0].box_score
     gamer2_score_box = new_game.list_gamers[1].box_score
@@ -561,3 +513,4 @@ def show_and_write_if_gamer_win(new_game):
     else:
         print("Good job AI and you had the some score ")
         time.sleep(3.5)
+ 

@@ -11,5 +11,9 @@ python main.py
 
 - In my code :
 
-gamer1 == Human who is you when you play vs AI 
-gamer2 == AI Player
+* gamer1 == > Human who is you when you play vs AI 
+* gamer2 == > AI Player
+
+* 7aya  == > card had as symbol 7 coeur 
+* sab3a == > card had seven as value 
+* karta == > when gamer had more 20 card in score box 
