@@ -1,19 +1,18 @@
 <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=BenHmidaMohammadAli.Card-Game">
 <h6 align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.herokuapp.com/?lines=Hello,+There!+👋;Development+of,+Tunisian+Game,+CHKOBA&center=true&size=30">
+    <img src="https://readme-typing-svg.herokuapp.com/?lines=Hello,+There!+👋;Development+of,;+Tunisian+Game,;+CHKOBA&center=true&size=30">
   </a>
 </h6> 
  
-<h1 align="center"> Python - Game Using Advanced Algorithme </h1>
-
+<h1 align="center"> Python - Game Using Advanced Algorithm </h1>
 
 - It's Tunisian Card Game "CHKOBA"
 
 - To play run 
-
+'''
 python main.py
-
+'''
 - Use "Copy/Past" from teminal to choose your cards to play
 
 - In my code :
