@@ -1,7 +1,7 @@
 <img align="right" src="https://visitor-badge.laobi.icu/badge?page_id=BenHmidaMohammadAli.Card-Game">
 <h6 align="center">
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.herokuapp.com/?lines=Hello,+There!+👋;Development+of;Tunisian+Game;Chkobat&center=true&size=30">
+    <img src="https://readme-typing-svg.herokuapp.com/?lines=Hello,+There!+👋;Development+of,+Tunisian+Game,+CHKOBA&center=true&size=30">
   </a>
 </h6> 
  
