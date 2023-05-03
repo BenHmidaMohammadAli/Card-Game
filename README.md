@@ -24,6 +24,7 @@ python main.py
 * sab3a == > card had seven as value 
 * karta == > when gamer had more 20 card in score box 
 
+* GUIDE OF GAME 
 <img src="./img/img1.png">
 <img src="./img/img2.png">
 <img src="./img/img3.png">
