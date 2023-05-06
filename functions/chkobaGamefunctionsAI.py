@@ -138,23 +138,25 @@ def continue_the_playing_process (new_game ,your_card , list_you_will_get) :
     c = " "
     
     if len(list_you_will_get) == 1:
+        c = c + "  " + list_you_will_get[0].symbol
         AI_score_box.append(list_you_will_get[0])
         louta_cards.remove(list_you_will_get[0])
-        c = c + "  " + list_you_will_get[0].symbol
         if len(louta_cards) == 0:
             AI_score_box.append("chkoba")
             print("CHKOBAAAAAAAAAAA")
             time.sleep(2)
     else :
-        for i in list_you_will_get : #range (len(list_you_will_get) ):
-            #here I'm ...........................................................................
-            AI_score_box.append(i)
-            louta_cards.remove(i)
-            c = c + "  " + i.symbol
+        i= 0
+        while len(list_you_will_get) != i:
+            c = c + "  " + list_you_will_get[i].symbol
+            AI_score_box.append(list_you_will_get[i])
+            louta_cards.remove(list_you_will_get[i])
+            
             if len(louta_cards) == 0:
                 AI_score_box.append("chkoba")
                 print("CHKOBAAAAAAAAAAA")
                 time.sleep(2)
+            i=i+1
             
     if c != " ": 
         print(BOLD, GREEN, f"Card ==> {c}", RESET)
@@ -173,7 +175,6 @@ def ai_play_minmax_algo(new_game):
     state_of_game = False # not again play and win a cards 
     #♠ - ♥ - ♦ - ♣
     if length_louta_cards != 0 :
-        
         #1st state chkoba  mean 1 point in score so verif we had it  "Chkobaa" and you will get all card in 
         #louta cards list 
         if state_of_game == False :
