@@ -147,7 +147,7 @@ def continue_the_playing_process (new_game ,your_card , list_you_will_get) :
             time.sleep(2)
     else :
         i= 0
-        while len(list_you_will_get) != i:
+        while len(list_you_will_get) > i:
             c = c + "  " + list_you_will_get[i].symbol
             AI_score_box.append(list_you_will_get[i])
             louta_cards.remove(list_you_will_get[i])
@@ -181,7 +181,8 @@ def ai_play_minmax_algo(new_game):
             I_can_get_chkoba, your_card= test_if_will_be_a_chkoba(louta_cards , AI_cards)
             
             if I_can_get_chkoba == True :
-                continue_the_playing_process(new_game ,your_card , louta_cards) 
+                list_to_play = list(louta_cards)
+                continue_the_playing_process(new_game ,your_card , list_to_play) 
                 state_of_game = True
 
         #2st state 7 ♦  mean 1 point in score so verif we had it "El7aya"
@@ -310,7 +311,6 @@ def ai_play_minmax_algo(new_game):
                         
     #if length_louta_cards we will play card != of all cards of the gamer1 cards
     # also this card will not be a valued card 
-    #TODO Verif
     elif length_louta_cards == 0 :
         test_cards_louta = list(louta_cards)
         card_dont_play = []
