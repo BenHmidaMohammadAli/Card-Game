@@ -318,8 +318,9 @@ def show_game(new_game, available_cards_list):
         c1 = c1 + f" [{i.symbol}] "
 
     for i in gamer2_cards:
-        c2 = c2 + f" [{i.symbol}] "
-        #c2 = c2 + f" [ ? ] "
+        # change this to show AI-Player Cards  
+        #c2 = c2 + f" [{i.symbol}] "
+        c2 = c2 + f" [ ? ] "
     
     for i in louta_cards:
         c3 = c3 + f" [{i.symbol}] "
